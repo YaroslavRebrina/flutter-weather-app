@@ -1,6 +1,7 @@
 # flutter_weather_app
 
 How to Use
+
 Clone repository,
 
 Open app and install dependencies using 'flutter pub get',
