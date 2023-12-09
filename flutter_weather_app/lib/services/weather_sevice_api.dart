@@ -3,7 +3,7 @@ import 'package:flutter_weather_app/services/geolocation_service.dart';
 import 'package:flutter_weather_app/services/weather_service.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:provider/provider.dart';
+
 import '../constants/constants.dart';
 import 'package:flutter_weather_app/main.dart';
 

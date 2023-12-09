@@ -23,7 +23,7 @@ class WeatherBar extends StatelessWidget {
         ),
         Text(date ?? ''),
         Text(
-          "${weatherName} | ${celsium.toString()}°C",
+          "$weatherName | ${celsium.toString()}°C",
           style: const TextStyle(fontSize: 20),
         ),
       ],

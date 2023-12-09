@@ -2,7 +2,7 @@
 import 'dart:convert';
 
 import 'package:flutter_weather_app/main.dart';
-import 'package:flutter_weather_app/services/db/hive_instance.dart';
+
 import 'package:flutter_weather_app/utils/time_parser.dart';
 
 import '../constants/constants.dart';
