@@ -2,15 +2,15 @@
 
 How to Use
 
-Clone repository,
+1. Clone repository,
 
-Open app and install dependencies using 'flutter pub get',
+2. Open app and install dependencies using 'flutter pub get',
 
-Start the App: Launch the app on your device or emulator using 'flutter run',
+3. Start the App: Launch the app on your device or emulator using 'flutter run',
 
-Search Weather: Use the search bar to enter a city name and view its current weather.
+4. Search Weather: Use the search bar to enter a city name and view its current weather.
 
-View Weather Details: Weather details are displayed in a readable format, showing temperature, weather condition, etc.
+5. View Weather Details: Weather details are displayed in a readable format, showing temperature, weather condition, etc.
 
 Project Structure
 
