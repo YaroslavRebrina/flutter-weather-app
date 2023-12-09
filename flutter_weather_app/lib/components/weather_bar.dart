@@ -3,8 +3,15 @@ import 'package:flutter/material.dart';
 class WeatherBar extends StatelessWidget {
   final double? celsium;
   final String? userCity;
+  final String? weatherName;
+  final String? date;
 
-  const WeatherBar({super.key, this.celsium = 0.0, this.userCity});
+  const WeatherBar(
+      {super.key,
+      this.celsium = 0.0,
+      this.userCity,
+      this.weatherName,
+      this.date});
 
   @override
   Widget build(BuildContext context) {
@@ -14,8 +21,9 @@ class WeatherBar extends StatelessWidget {
           userCity ?? '',
           style: const TextStyle(fontSize: 20),
         ),
+        Text(date ?? ''),
         Text(
-          "${celsium.toString()}°C",
+          "${weatherName} | ${celsium.toString()}°C",
           style: const TextStyle(fontSize: 20),
         ),
       ],

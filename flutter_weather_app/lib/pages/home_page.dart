@@ -1,13 +1,12 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_weather_app/components/home_buttons.dart';
 import 'package:flutter_weather_app/components/search_bar.dart';
 import 'package:flutter_weather_app/components/weather_bar.dart';
-import 'package:flutter_weather_app/services/geolocation_service.dart';
+import 'package:flutter_weather_app/main.dart';
+
 import 'package:flutter_weather_app/services/weather_service.dart';
 
 import 'package:flutter_weather_app/services/weather_sevice_api.dart';
-import 'package:http/http.dart' as http;
-import '../constants/constants.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -25,25 +24,14 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    weatherFuture = _loadWeatherData();
-  }
-
-  Future<WeatherResponse?> _loadWeatherData() async {
-    final positionOnRender = await getCurrentPosition();
-    if (positionOnRender != null) {
-      var urlWeather = Uri.parse(
-          'https://api.openweathermap.org/data/2.5/weather?lat=${positionOnRender.latitude}&lon=${positionOnRender.longitude}&units=metric&appid=$API_KEY');
-
-      final response = await http.get(urlWeather);
-      final decodedData = jsonDecode(response.body);
-      var weatherData = decodedData['main'];
-
-      return WeatherResponse.fromJson(weatherData);
-    }
-    return null;
+    weatherFuture = loadWeatherData(userCity: userCity);
   }
 
   void handleSearch(String city) async {
+    if (city.isEmpty) {
+      return;
+    }
+
     setState(() {
       userCity = city;
       weatherFuture = getWeather(city: city);
@@ -71,9 +59,22 @@ class _MyHomePageState extends State<MyHomePage> {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const CircularProgressIndicator();
                 } else if (snapshot.hasError) {
-                  return const Text('City not exist or you made a mistake ;)');
+                  try {
+                    final temp = box.get('temp');
+                    final city = box.get('city');
+                    final weatherName = box.get('weatherName');
+                    return WeatherBar(
+                      weatherName: weatherName,
+                      userCity: city,
+                      celsium: temp,
+                    );
+                  } catch (e) {
+                    return const Text(
+                        'City not exist or you made a mistake ;)');
+                  }
                 } else if (snapshot.hasData) {
                   return WeatherBar(
+                    weatherName: snapshot.data?.weatherName,
                     userCity: userCity,
                     celsium: snapshot.data?.temp,
                   );
@@ -85,6 +86,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
+      floatingActionButton: const HomeButtons(),
     );
   }
 }
